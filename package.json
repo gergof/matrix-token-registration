@@ -1,0 +1,75 @@
+{
+  "name": "matrix-token-registration",
+  "version": "0.1.0",
+  "description": "Register to a matrix homeserver using a registration token and join rooms automatically.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest --watchAll"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gergof/matrix-token-registration.git"
+  },
+  "keywords": [
+    "matrix",
+    "token",
+    "registration",
+    "join"
+  ],
+  "author": "Fándly Gergő-Zoltán <gergo@systemtest.tk>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/gergof/matrix-token-registration/issues"
+  },
+  "homepage": "https://github.com/gergof/matrix-token-registration#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "cross-env": "^7.0.2",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^25.1.0",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1",
+    "standard-version": "^7.1.0"
+  },
+  "standard-version": {
+    "types": [
+      {
+        "type": "feat",
+        "section": "Features"
+      },
+      {
+        "type": "fix",
+        "section": "Bug Fixes"
+      },
+      {
+        "type": "ci",
+        "section": "CI/Build"
+      },
+      {
+        "type": "chore",
+        "hidden": true
+      },
+      {
+        "type": "docs",
+        "section": "Documentation"
+      },
+      {
+        "type": "style",
+        "hidden": true
+      },
+      {
+        "type": "refactor",
+        "section": "Refactor"
+      },
+      {
+        "type": "test",
+        "section": "Testing"
+      }
+    ]
+  }
+}
