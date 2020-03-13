@@ -1,0 +1,28 @@
+{
+  "name": "backend",
+  "version": "0.0.0",
+  "description": "Backend",
+  "author": "Fándly Gergő-Zoltán <gergo@systemtest.tk>",
+  "homepage": "https://github.com/gergof/matrix-token-registration/tree/master/packages/backend#readme",
+  "license": "GPL-3.0",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gergof/matrix-token-registration.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "start": "nodemon --exec babel-node src/index.js",
+    "build": "babel src -d build"
+  },
+  "bugs": {
+    "url": "https://github.com/gergof/matrix-token-registration/issues"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "nodemon": "^2.0.2"
+  }
+}
