@@ -23,53 +23,12 @@
   },
   "homepage": "https://github.com/gergof/matrix-token-registration#readme",
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.7",
-    "@babel/node": "^7.8.7",
-    "@babel/preset-env": "^7.8.7",
     "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
     "jest": "^25.1.0",
-    "nodemon": "^2.0.2",
-    "prettier": "^1.19.1",
-    "standard-version": "^7.1.0"
-  },
-  "standard-version": {
-    "types": [
-      {
-        "type": "feat",
-        "section": "Features"
-      },
-      {
-        "type": "fix",
-        "section": "Bug Fixes"
-      },
-      {
-        "type": "ci",
-        "section": "CI/Build"
-      },
-      {
-        "type": "chore",
-        "hidden": true
-      },
-      {
-        "type": "docs",
-        "section": "Documentation"
-      },
-      {
-        "type": "style",
-        "hidden": true
-      },
-      {
-        "type": "refactor",
-        "section": "Refactor"
-      },
-      {
-        "type": "test",
-        "section": "Testing"
-      }
-    ]
+    "lerna": "^3.20.2",
+    "prettier": "^1.19.1"
   }
 }
