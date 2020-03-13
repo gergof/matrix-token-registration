@@ -1,0 +1,32 @@
+{
+  "name": "frontend",
+  "version": "0.0.0",
+  "description": "Frontend",
+  "author": "Fándly Gergő-Zoltán <gergo@systemtest.tk>",
+  "homepage": "https://github.com/gergof/matrix-token-registration/tree/master/packages/frontend#readme",
+  "license": "GPL-3.0",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gergof/matrix-token-registration.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "start": "webpack-dev-server --open --hot",
+    "build": "webpack"
+  },
+  "bugs": {
+    "url": "https://github.com/gergof/matrix-token-registration/issues"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/preset-react": "^7.8.3",
+    "babel-loader": "^8.0.6",
+    "html-webpack-plugin": "^3.2.0",
+    "path": "^0.12.7",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  }
+}
