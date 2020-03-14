@@ -1,25 +1,20 @@
+import Matrix from 'matrix-js-sdk';
+import { logger as matrixLogger } from 'matrix-js-sdk/lib/logger';
 let client;
 
 const init = ({ config, logger }) => {
 	return new Promise((resolve, reject) => {
-		// trick to set custom logger
-
-		/* eslint-disable no-console */
-		const oldLog = console.log;
-		const oldWarn = console.warn;
-		const oldError = console.error;
-		const oldDebug = console.debug;
-		global.console.log = (...msg) =>
+		// rewrite matrix logger
+		matrixLogger.info = (...msg) =>
 			logger.log({ level: 'info', message: msg.join(' ') });
-		global.console.warn = (...msg) =>
-			logger.log({ level: 'warning', message: msg.join(' ') });
-		global.console.error = (...msg) =>
+		matrixLogger.log = (...msg) =>
+			logger.log({ level: 'info', message: msg.join(' ') });
+		matrixLogger.warn = (...msg) =>
+			logger.log({ level: 'warn', message: msg.join(' ') });
+		matrixLogger.error = (...msg) =>
 			logger.log({ level: 'error', message: msg.join(' ') });
-		global.console.debug = (...msg) =>
+		matrixLogger.trace = (...msg) =>
 			logger.log({ level: 'debug', message: msg.join(' ') });
-		/* eslint-enable */
-
-		const Matrix = require('matrix-js-sdk');
 
 		logger.log({ level: 'info', message: 'Starting matrix client' });
 		client = Matrix.createClient({
@@ -28,13 +23,6 @@ const init = ({ config, logger }) => {
 			accessToken: config.bot.token
 		});
 		matrix.client = client;
-
-		/* eslint-disable no-console */
-		global.console.log = oldLog;
-		global.console.warn = oldWarn;
-		global.console.error = oldError;
-		global.console.debug = oldDebug;
-		/* eslint-enable */
 
 		client.startClient({ initialSyncLimit: 10 }).then(() => {
 			logger.log({ level: 'info', message: 'Client started' });
