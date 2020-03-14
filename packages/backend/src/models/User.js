@@ -21,14 +21,10 @@ const User = sequelize => {
 			}
 		},
 		{
-			timestamps: true,
-			classMethods: {
-				associate: models => {
-					User.hasMany(models.Token);
-				}
-			}
+			timestamps: true
 		}
 	);
+
 	return User;
 };
 

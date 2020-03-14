@@ -47,13 +47,33 @@ class SessionStorage {
 	}
 
 	get(session) {
+		if (!session) {
+			return null;
+		}
 		if (!this.store[session]) {
 			return null;
 		}
 		if (this.store[session].expires < Date.now()) {
 			return null;
 		}
-		return this.store[session].info;
+		return {
+			...this.store[session].info,
+			sessionId: session
+		};
+	}
+
+	update(session, patch) {
+		const current = this.get(session);
+		if (!current) {
+			return false;
+		}
+
+		this.store[session].info = {
+			...this.store[session].info,
+			...patch
+		};
+
+		return this.get(session);
 	}
 }
 

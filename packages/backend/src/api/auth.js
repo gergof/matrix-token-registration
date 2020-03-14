@@ -2,7 +2,7 @@ import axios from 'axios';
 import config from '../config';
 import sessions from '../sessions';
 
-const auth = app => {
+const auth = () => app => {
 	app.post('/api/auth', (req, res) => {
 		axios
 			.get(

@@ -20,13 +20,9 @@ const TokenUsage = sequelize => {
 		},
 		{
 			timestamps: true,
-			classMethods: {
-				associate: models => {
-					TokenUsage.belongsTo(models.Token, { foreignKeyConstraint: true });
-				}
-			}
 		}
 	);
+
 	return TokenUsage;
 };
 

@@ -24,14 +24,7 @@ const Token = sequelize => {
 			}
 		},
 		{
-			timestamps: true,
-			classMethods: {
-				associate: models => {
-					Token.belongsTo(models.User, { foreignKeyConstraint: true });
-					Token.hasMany(models.TokenTarget);
-					Token.hasMany(models.TokenUsage);
-				}
-			}
+			timestamps: true
 		}
 	);
 

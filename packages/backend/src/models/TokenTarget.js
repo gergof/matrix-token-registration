@@ -20,14 +20,10 @@ const TokenTarget = sequelize => {
 			}
 		},
 		{
-			timestamps: true,
-			classMethods: {
-				associate: models => {
-					TokenTarget.belongsTo(models.Token, { foreignKeyConstraint: true });
-				}
-			}
+			timestamps: true
 		}
 	);
+	
 	return TokenTarget;
 };
 
