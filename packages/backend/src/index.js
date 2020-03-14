@@ -3,6 +3,7 @@ import { getLogger } from './logging';
 
 import { db } from './database';
 import { express } from './express';
+import sessionStorage from './sessions';
 
 const logger = getLogger('main');
 
@@ -11,6 +12,10 @@ logger.log({ level: 'info', message: 'Starting up' });
 db.init({ logger: getLogger('db') })
 	.then(() => {
 		logger.log({ level: 'info', message: 'Database ready' });
+	})
+	.then(() => sessionStorage.init({ logger: getLogger('session') }))
+	.then(() => {
+		logger.log({ level: 'info', message: 'Session storage ready' });
 	})
 	.then(() => express.init({ config, logger: getLogger('express') }))
 	.then(() => {
@@ -35,6 +40,10 @@ const close = () => {
 	db.close()
 		.then(() => {
 			logger.log({ level: 'info', message: 'Database shut down' });
+		})
+		.then(() => sessionStorage.close())
+		.then(() => {
+			logger.log({ level: 'info', message: 'Session storage shut down' });
 		})
 		.then(() => express.close())
 		.then(() => {
