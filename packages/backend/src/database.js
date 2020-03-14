@@ -1,0 +1,49 @@
+import { Sequelize } from 'sequelize';
+import models from './models';
+
+let sequelize;
+
+const init = ({ logger }) => {
+	logger.log({ level: 'info', message: 'Initializing database' });
+	sequelize = new Sequelize(
+		process.env.NODE_ENV == 'production'
+			? 'sqlite:/data/database.sqlite'
+			: 'sqlite:database.sqlite',
+		{
+			logging: msg => logger.log({ level: 'debug', message: msg })
+		}
+	);
+
+	logger.log({ level: 'info', message: 'Loading models' });
+	models.map(model => {
+		model(sequelize);
+	});
+	logger.log({ level: 'info', message: 'Models loaded' });
+
+	return sequelize
+		.authenticate()
+		.then(() => {
+			logger.log({ level: 'info', message: 'Database initialized' });
+			logger.log({ level: 'info', message: 'Syncing schema' });
+			return sequelize.sync({ alter: true });
+		})
+		.then(() => {
+			logger.log({ level: 'info', message: 'Schema synced' });
+		})
+		.catch(e => {
+			logger.log({
+				level: 'error',
+				message: 'Database initialization failed: ' + e
+			});
+			process.exit(1);
+		});
+};
+
+const close = () => {
+	return sequelize.close();
+};
+
+const db = { init, close };
+
+export { db };
+export default sequelize;
