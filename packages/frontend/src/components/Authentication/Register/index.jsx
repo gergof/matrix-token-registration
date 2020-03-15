@@ -70,7 +70,12 @@ const Register = ({ config, back, setSession }) => {
 					);
 				})
 				.then(resp => {
-					setSession(resp.data.access_token);
+					return axios.post('api/auth', {
+						openIdToken: resp.data.access_token
+					});
+				})
+				.then(resp => {
+					setSession(resp.data.session);
 				})
 				.catch(err => {
 					if (err.response.status == 400) {

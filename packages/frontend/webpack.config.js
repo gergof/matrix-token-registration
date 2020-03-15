@@ -31,6 +31,12 @@ module.exports = {
 	devServer: {
 		historyApiFallback: true,
 		publicPath: '/join',
-		contentBase: './src/public'
+		contentBase: './src/public',
+		proxy: {
+			'/join/api': {
+				target: 'http://localhost:3003',
+				pathRewrite: { '^/join': '' }
+			}
+		}
 	}
 };

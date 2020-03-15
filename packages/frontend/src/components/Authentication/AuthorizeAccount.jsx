@@ -56,7 +56,10 @@ const AuthorizeAccount = ({ config, back, setSession }) => {
 				);
 			})
 			.then(resp => {
-				setSession(resp.data.access_token);
+				return axios.post('api/auth', { openIdToken: resp.data.access_token });
+			})
+			.then(resp => {
+				setSession(resp.data.session);
 			})
 			.catch(() => {
 				alert('Invalid token. Please log out and log in to Riot!');

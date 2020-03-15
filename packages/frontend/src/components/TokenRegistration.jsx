@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Authentication from './Authentication';
+import SubmitToken from './SubmitToken';
 
 const useStyles = makeStyles(theme => ({
 	container: {
@@ -71,7 +72,11 @@ const TokenRegistration = () => {
 					<img src={data.branding.authHeaderLogoUrl} alt="logo" />
 				</div>
 				<div className={classes.content}>
-					{session ? <p>ASD</p> : <Authentication config={data} setSession={setSession} />}
+					{session ? (
+						<SubmitToken session={session} />
+					) : (
+						<Authentication config={data} setSession={setSession} />
+					)}
 				</div>
 			</Paper>
 		</div>
