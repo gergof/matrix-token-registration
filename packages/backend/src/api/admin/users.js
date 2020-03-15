@@ -95,6 +95,36 @@ const users = ({ db }) => app => {
 				});
 		})
 	);
+
+	app.delete(
+		'/api/admin/users/:id',
+		isAuthorized(db, (req, res, user) => {
+			if (!['admin', 'root'].includes(user.role)) {
+				res.status(403);
+				res.json({ error: 'Unauthorized' });
+				return;
+			}
+
+			db.models.User.findAll({
+				where: {
+					id: req.params.id
+				}
+			})
+				.then(rows => rows[0])
+				.then(user => {
+					if (!user) {
+						res.status(404);
+						res.json({ error: 'Not found' });
+						return;
+					}
+
+					return user.destroy();
+				})
+				.then(() => {
+					res.json({ msg: 'Deleted' });
+				});
+		})
+	);
 };
 
 export default users;
