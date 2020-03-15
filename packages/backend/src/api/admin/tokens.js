@@ -19,9 +19,16 @@ const tokens = ({ db }) => app => {
 					res.json(tokens);
 				});
 			} else {
-				user.getTokens().then(tokens => {
-					res.json(tokens);
-				});
+				user
+					.getTokens({
+						include: [
+							{ model: db.models.TokenTarget },
+							{ model: db.models.TokenUsage }
+						]
+					})
+					.then(tokens => {
+						res.json(tokens);
+					});
 			}
 		})
 	);
@@ -79,7 +86,7 @@ const tokens = ({ db }) => app => {
 
 	app.get(
 		'/api/admin/tokens/create/status',
-		isAuthorized(db, async (req, res, user, session) => {
+		isAuthorized(db, (req, res, user, session) => {
 			if (!session.createToken) {
 				res.status(400);
 				res.json({ error: 'No token creation in progress' });
@@ -93,25 +100,34 @@ const tokens = ({ db }) => app => {
 				// we are done
 				const tokenStr = RandToken.generator({ chars: 'alpha' }).generate(8);
 
-				// commit changes to database
-				const token = await db.models.Token.create({
+				// commit changes
+				const token = db.models.Token.build({
 					token: tokenStr,
 					type: session.createToken.type,
 					expiry: session.createToken.expiry
 				});
-				session.createToken.joinStatus.joined.map(async target => {
-					const tokenTarget = db.models.TokenTarget.build({
-						targetType: target.type,
-						target: target.target
+				token.setUser(user, { save: false });
+				token
+					.save()
+					.then(() => {
+						return Promise.all(
+							session.createToken.joinStatus.joined.map(target => {
+								const tokenTarget = db.models.TokenTarget.build({
+									targetType: target.type,
+									target: target.target
+								});
+								tokenTarget.setToken(token, { save: false });
+								return tokenTarget.save();
+							})
+						);
+					})
+					.then(() => {
+						res.status(201);
+						res.json({ ...token.get({ plain: true }), status: 'done' });
+
+						// clear progress from session
+						sessions.update(session.sessionId, { createToken: null });
 					});
-					await token.addTokenTarget(tokenTarget);
-					//not adding :(
-				});
-
-				res.status(201);
-				res.json(token);
-
-				sessions.update(session.sessionId, { createToken: null });
 			}
 		})
 	);
@@ -143,6 +159,47 @@ const tokens = ({ db }) => app => {
 			sessions.update(session.sessionId, { createToken: null });
 
 			res.json({ msg: 'Cancelled' });
+		})
+	);
+
+	app.delete(
+		'/api/admin/tokens/:id',
+		isAuthorized(db, (req, res, user) => {
+			if (['admin', 'root'].includes(user.role)) {
+				db.models.Token.findOne({ where: { id: req.params.id } }).then(
+					token => {
+						if (!token) {
+							res.status(404);
+							res.json({ err: 'Not found' });
+							return;
+						}
+
+						token.destroy();
+						res.json({ msg: 'Deleted' });
+					}
+				);
+			} else {
+				db.models.Token.findOne({
+					where: {
+						id: req.params.id
+					},
+					include: {
+						model: db.models.User,
+						where: {
+							id: user.id
+						}
+					}
+				}).then(token => {
+					if (!token) {
+						res.status(404);
+						res.json({ err: 'Not found' });
+						return;
+					}
+
+					token.destroy();
+					res.json({ msg: 'Deleted' });
+				});
+			}
 		})
 	);
 };
