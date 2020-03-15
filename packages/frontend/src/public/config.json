@@ -1,0 +1,27 @@
+{
+	"default_server_config": {
+		"m.homeserver": {
+			"base_url": "https://systemtest.tk",
+			"server_name": "systemtest.tk"
+		}
+	},
+	"brand": "Systemtest.tk Riot",
+	"branding": {
+		"welcomeBackgroundUrl": "https://www.systemtest.tk/res/bg.png",
+		"authHeaderLogoUrl": "https://www.systemtest.tk/res/logo.png",
+		"authFooterLinks": [
+			{
+				"text": "Systemtest",
+				"url": "https://systemtest.tk"
+			},
+			{
+				"text": "Contact",
+				"url": "https://www.systemtest.tk/contact"
+			},
+			{
+				"text": "Terms and conditions",
+				"url": "https://systemtest.tk/_matrix/consent"
+			}
+		]
+	}
+}
