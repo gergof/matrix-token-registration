@@ -20,7 +20,7 @@ deploy:
   - sudo docker build -t gergof/matrix-token-registration:$(echo $ABSTRUSE_BRANCH | sed -r 's/\//_/g') .
   - sudo docker push gergof/matrix-token-registration:$(echo $ABSTRUSE_BRANCH | sed -r 's/\//_/g')
   - >
-    if [ ! -z "$ABSTRUSE_TAG" ]; then
+    if [ ! -z "$ABSTRUSE_TAG" ] && [ "$ABSTRUSE_TAG" != "null" ]; then
       sudo docker tag gergof/matrix-token-registration:$(echo $ABSTRUSE_BRANCH | sed -r 's/\//_/g') gergof/matrix-token-registration:$ABSTRUSE_TAG
       sudo docker push gergof/matrix-token-registration:$ABSTRUSE_TAG
     fi
