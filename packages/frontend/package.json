@@ -13,7 +13,7 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
     "start": "webpack-dev-server --open --hot",
-    "build": "webpack"
+    "build": "webpack --node-args='--max-old-space-size=512'"
   },
   "bugs": {
     "url": "https://github.com/gergof/matrix-token-registration/issues"

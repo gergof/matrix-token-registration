@@ -10,6 +10,7 @@ script:
   - npm run $SCRIPT
 deploy:
   - npm ci
+  - npm run bootstrap
   - npm run build
   - mkdir build
   - cp -R packages/backend/build/* build
