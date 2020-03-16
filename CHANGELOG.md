@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1](https://github.com/gergof/matrix-token-registration/compare/v0.1.0...v0.1.1) (2020-03-16)
+
+
+### Bug Fixes
+
+* **backend:** Schema was not created ([b07a624](https://github.com/gergof/matrix-token-registration/commit/b07a6244d414ba7abdd84f60deed26f12dab1b29))
+* Forgot to include CMD in Dockerfile ([f10f9c2](https://github.com/gergof/matrix-token-registration/commit/f10f9c20088596fb70c429957bdfc23b6953b9dd))
+
+
+
+
+
 # 0.1.0 (2020-03-16)
 
 
