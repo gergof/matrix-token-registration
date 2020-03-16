@@ -1,6 +1,6 @@
 {
   "name": "backend",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Backend",
   "author": "Fándly Gergő-Zoltán <gergo@systemtest.tk>",
   "homepage": "https://github.com/gergof/matrix-token-registration/tree/master/packages/backend#readme",
