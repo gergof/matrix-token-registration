@@ -32,6 +32,7 @@ const useStyles = makeStyles(theme => ({
 const Register = ({ config, back, setSession }) => {
 	const classes = useStyles();
 
+	const [isLoading, setIsLoading] = useState(false);
 	const [additionalAuth, setAdditionalAuth] = useState([]);
 	const [regSession, setRegSession] = useState(null);
 	const [userCred, setUserCred] = useState({});
@@ -57,7 +58,15 @@ const Register = ({ config, back, setSession }) => {
 					}
 				)
 				.then(resp => {
+					setIsLoading(true);
+
+					// clear list, since we succeeded
 					setAdditionalAuth([]);
+
+					// save access token to log in directly to Riot
+					localStorage.setItem('mx_access_token', resp.data.access_token);
+
+					// get openID token
 					return axios.post(
 						config.default_server_config['m.homeserver'].base_url +
 							`/_matrix/client/r0/user/${resp.data.user_id}/openid/request_token`,
@@ -100,6 +109,7 @@ const Register = ({ config, back, setSession }) => {
 					}
 
 					alert('Some error occured. Please try again later!');
+					setIsLoading(false);
 				});
 		},
 		[
@@ -109,12 +119,17 @@ const Register = ({ config, back, setSession }) => {
 			additionalAuth,
 			setAdditionalAuth,
 			userCred,
-			setUserCred
+			setUserCred,
+			setIsLoading
 		]
 	);
 
 	const AdditionalAuthComponent =
 		additionalAuth.length && AdditionalAuth[additionalAuth[0].type];
+
+	if (isLoading) {
+		return <Typography>Loading...</Typography>;
+	}
 
 	return (
 		<React.Fragment>
