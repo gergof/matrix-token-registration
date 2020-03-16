@@ -12,7 +12,7 @@ VOLUME ["/data"]
 RUN mkdir -p /opt/matrix-token-registration
 WORKDIR /opt/matrix-token-registration
 COPY build/ ./
-COPY package.json package-lock.json ./
+COPY packages/backend/package.json packages/backend/package-lock.json ./
 
 # Install production dependencies
 RUN npm ci --only=production
