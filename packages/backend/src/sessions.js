@@ -30,6 +30,7 @@ class SessionStorage {
 	close() {
 		return new Promise(resolve => {
 			clearInterval(this.cleaner);
+			resolve();
 		});
 	}
 

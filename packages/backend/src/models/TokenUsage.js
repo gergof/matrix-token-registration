@@ -19,7 +19,7 @@ const TokenUsage = sequelize => {
 			}
 		},
 		{
-			timestamps: true,
+			timestamps: true
 		}
 	);
 

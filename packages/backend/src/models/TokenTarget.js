@@ -23,7 +23,7 @@ const TokenTarget = sequelize => {
 			timestamps: true
 		}
 	);
-	
+
 	return TokenTarget;
 };
 
