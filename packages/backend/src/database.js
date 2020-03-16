@@ -27,6 +27,11 @@ const init = ({ logger }) => {
 		.authenticate()
 		.then(() => {
 			logger.log({ level: 'info', message: 'Database initialized' });
+			logger.log({ level: 'info', message: 'Syncing schema' });
+			return sequelize.sync();
+		})
+		.then(() => {
+			logger.log({ level: 'info', message: 'Schema synced' });
 		})
 		.catch(e => {
 			logger.log({
