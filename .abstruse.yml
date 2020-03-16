@@ -29,3 +29,4 @@ deploy:
       sudo docker tag gergof/matrix-token-registration:$(echo $ABSTRUSE_BRANCH | sed -r 's/\//_/g') gergof/matrix-token-registration:latest
       sudo docker push gergof/matrix-token-registration:latest
     fi
+  - sudo docker logout
