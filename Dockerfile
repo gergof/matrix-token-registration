@@ -16,3 +16,5 @@ COPY package.json package-lock.json ./
 
 # Install production dependencies
 RUN npm ci --only=production
+
+CMD ["node", "index.js"]
